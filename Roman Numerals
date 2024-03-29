@@ -1,0 +1,39 @@
+Certainly! Let's convert an integer to a Roman numeral. We'll follow the rules you've provided for Roman numerals:
+
+1. Roman numerals are represented by seven different symbols: I, V, X, L, C, D, and M.
+2. They are usually written in largest to smallest order from left to right.
+3. There are six instances where subtraction is used:
+    - I can be placed before V (5) and X (10) to make 4 and 9.
+    - X can be placed before L (50) and C (100) to make 40 and 90.
+    - C can be placed before D (500) and M (1000) to make 400 and 900.
+
+Let's implement an algorithm to convert an integer to a Roman numeral:
+
+1. Create two arrays:
+    - One for storing the values of Roman numerals (`values`).
+    - Another for storing the corresponding letters (`symbols`).
+2. Initialize an empty `StringBuilder` to build the Roman numeral.
+3. Compare the integer with Roman numerals and do the following:
+    - If the input number is greater than or equal to the highest Roman numeral value, add the corresponding symbol to the `StringBuilder` and reduce its corresponding value from the input number.
+    - If the input number is less than the highest Roman numeral value, then check with the next highest Roman numerals.
+    - Repeat the process above until the input number becomes 0.
+4. The `StringBuilder` will be the corresponding Roman numeral.
+
+Here's the Java implementation:
+
+```java
+class Solution {
+    public String intToRoman(int num) {
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            while (num >= values[i]) {
+                num -= values[i];
+                result.append(symbols[i]);
+            }
+        }
+        return result.toString();
+    }
+}
