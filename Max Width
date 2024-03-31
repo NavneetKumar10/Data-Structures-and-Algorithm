@@ -1,0 +1,11 @@
+public static void main(String[] args) {
+    Solution solution = new Solution();
+
+    String[] words1 = {"This", "is", "an", "example", "of", "text", "justification."};
+    int maxWidth1 = 16;
+    System.out.println(solution.fullJustify(words1, maxWidth1));
+
+    String[] words2 = {"What", "must", "be", "acknowledgment", "shall", "be"};
+    int maxWidth2 = 16;
+    System.out.println(solution.fullJustify(words2, maxWidth2));
+}
