@@ -1,0 +1,61 @@
+import java.util.*;
+
+class Solution {
+    public String minWindow(String s, String t) {
+        if (s == null || s.length() == 0 || t == null || t.length() == 0) {
+            return "";
+        }
+        
+        Map<Character, Integer> targetMap = new HashMap<>();
+        Map<Character, Integer> windowMap = new HashMap<>();
+        
+        // Populate targetMap with frequency of characters in t
+        for (char ch : t.toCharArray()) {
+            targetMap.put(ch, targetMap.getOrDefault(ch, 0) + 1);
+        }
+        
+        int left = 0, right = 0;
+        int minWindowLength = Integer.MAX_VALUE;
+        int minWindowStart = 0;
+        int requiredChars = targetMap.size(); // Number of unique characters in t
+        
+        int formedChars = 0; // Number of unique characters formed in the window
+        
+        // Sliding window approach
+        while (right < s.length()) {
+            char currentChar = s.charAt(right);
+            
+            windowMap.put(currentChar, windowMap.getOrDefault(currentChar, 0) + 1);
+            
+            // If the current character forms part of t and its frequency in window matches that in t
+            if (targetMap.containsKey(currentChar) && windowMap.get(currentChar).intValue() == targetMap.get(currentChar).intValue()) {
+                formedChars++;
+            }
+            
+            // Try to shrink the window as much as possible while still containing all characters from t
+            while (left <= right && formedChars == requiredChars) {
+                char leftChar = s.charAt(left);
+                
+                // Update the minimum window substring if a smaller one is found
+                if (right - left + 1 < minWindowLength) {
+                    minWindowLength = right - left + 1;
+                    minWindowStart = left;
+                }
+                
+                windowMap.put(leftChar, windowMap.get(leftChar) - 1);
+                
+                // If the character going out of the window is part of t and its frequency becomes less
+                // than required, decrement formedChars
+                if (targetMap.containsKey(leftChar) && windowMap.get(leftChar).intValue() < targetMap.get(leftChar).intValue()) {
+                    formedChars--;
+                }
+                
+                left++;
+            }
+            
+            right++;
+        }
+        
+        return minWindowLength == Integer.MAX_VALUE ? "" : s.substring(minWindowStart, minWindowStart + minWindowLength);
+    }
+}
