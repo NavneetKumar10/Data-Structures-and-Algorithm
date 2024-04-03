@@ -1,0 +1,27 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        
+        Map<Character, Character> sToTMap = new HashMap<>();
+        Map<Character, Character> tToSMap = new HashMap<>();
+        
+        for (int i = 0; i < s.length(); i++) {
+            char sChar = s.charAt(i);
+            char tChar = t.charAt(i);
+            
+            if (!sToTMap.containsKey(sChar) && !tToSMap.containsKey(tChar)) {
+                sToTMap.put(sChar, tChar);
+                tToSMap.put(tChar, sChar);
+            } else if (sToTMap.getOrDefault(sChar, '?') != tChar || tToSMap.getOrDefault(tChar, '?') != sChar) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+}
