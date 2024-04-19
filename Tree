@@ -1,0 +1,34 @@
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        // Create a map to store the index of each element in the inorder traversal
+        Map<Integer, Integer> indexMap = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            indexMap.put(inorder[i], i);
+        }
+        // Construct the binary tree recursively
+        return buildTreeHelper(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, indexMap);
+    }
+    
+    private TreeNode buildTreeHelper(int[] preorder, int preStart, int preEnd, 
+                                     int[] inorder, int inStart, int inEnd, 
+                                     Map<Integer, Integer> indexMap) {
+        // Base case: if the preorder start index is greater than the end index, return null
+        if (preStart > preEnd) {
+            return null;
+        }
+        // Create a root node with the value from the current preorder index
+        TreeNode root = new TreeNode(preorder[preStart]);
+        // Find the index of the root value in the inorder traversal
+        int inIndex = indexMap.get(root.val);
+        // Calculate the number of nodes in the left subtree
+        int leftSubtreeSize = inIndex - inStart;
+        // Recursively build the left subtree
+        root.left = buildTreeHelper(preorder, preStart + 1, preStart + leftSubtreeSize, 
+                                    inorder, inStart, inIndex - 1, indexMap);
+        // Recursively build the right subtree
+        root.right = buildTreeHelper(preorder, preStart + leftSubtreeSize + 1, preEnd, 
+                                     inorder, inIndex + 1, inEnd, indexMap);
+        // Return the root node
+        return root;
+    }
+}
