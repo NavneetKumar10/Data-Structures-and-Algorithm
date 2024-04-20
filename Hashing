@@ -1,0 +1,24 @@
+import java.util.*;
+
+public class Solution {
+    public int solve(int[] A) {
+        Set<Long> prefixSumSet = new HashSet<>();
+        long prefixSum = 0;
+        prefixSumSet.add(0L); // Initialize with 0
+        
+        // Iterate through the array
+        for (int num : A) {
+            prefixSum += num;
+            
+            // If prefix sum is zero or we have seen the same prefix sum before
+            if (prefixSumSet.contains(prefixSum)) {
+                return 1;
+            }
+            
+            // Add current prefix sum to the set
+            prefixSumSet.add(prefixSum);
+        }
+        
+        return 0;
+    }
+}
