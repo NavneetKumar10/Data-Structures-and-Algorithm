@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Solution {
-    public int solve(int[] A) {
+    public int solve(int[] A)      {
         Set<Long> prefixSumSet = new HashSet<>();
         long prefixSum = 0;
         prefixSumSet.add(0L); // Initialize with 0
