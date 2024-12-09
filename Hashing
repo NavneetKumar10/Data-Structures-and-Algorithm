@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Solution {
+public class Solution {        
     public int solve(int[] A)      {
         Set<Long> prefixSumSet = new HashSet<>();
         long prefixSum = 0;
