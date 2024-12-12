@@ -2,7 +2,7 @@ import java.util.Stack;
 
 class Solution {
     public int calculate(String s) {
-        Stack<Integer> stack = new Stack<>();
+        Stack<Integer> stack = new Stack<>(); 
         int operand = 0;
         int result = 0;
         int sign = 1; // 1 represents positive sign, -1 represents negative sign
