@@ -6,7 +6,7 @@ class Solution
             return 0;  
 
         HashMap<Character, Integer> map = new HashMap<>();
-        int max = 0;
+        int max = 0;       
         int start = 0;
 
         for (int end = 0; end < s.length(); end++) {
